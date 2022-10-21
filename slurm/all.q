@@ -1,10 +1,27 @@
 #!/usr/bin/bash
-#####################################################################
+#########################################################################################################
 #
 #       Created by:
 #               Raúl De Armas Rodríguez   
 #
-####################################################################
+#########################################################################################################
+#       This scripts is build for slurm 21.08.1.
+#
+#       Purpose: Obtain information about CPU and memory use and availability in an easy display format.
+#       Requirements:
+#               -Slurm 21.08.1
+#       Input:
+#               None ( use the command "scontrol show node" and parse the information on the out)
+#       Output example:
+#             NodeName  CPU[use/tot/%]     Mem[use/tot/%]    MemLimit
+#             nodo01        0/64/0,00%       0/185/0,00% Gb   4 Gb
+#             nodo02        0/32/0,00%       0/250/0,00% Gb   4 Gb
+#             nodo03        0/32/0,00%       0/250/0,00% Gb   4 Gb
+#             nodo04        0/32/0,00%       0/250/0,00% Gb   4 Gb
+#             nodo05        0/40/0,00%       0/92/0,00% Gb    4 Gb
+#             nodo06        0/32/0,00%       0/250/0,00% Gb   4 Gb
+#
+#########################################################################################################
 TXT=$(scontrol show node)
 
 # separating by \n

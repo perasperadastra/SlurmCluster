@@ -58,13 +58,15 @@ do
         # memory stuff
         if [[ "$i" == *RealMemory* ]]; then
                 REALmem=$(echo $i | awk -F " " '{print $1}' | awk -F "=" '{print$2}')
-                FreeMem=$(echo $i | awk -F " " '{print $3}' | awk -F "=" '{print$2i}')
+                AllocMem=$(echo $i | awk -F " " '{print $2}' | awk -F "=" '{print$2}')
                 # converting to Gb 
+                echo $AllocMem
                 #if 
-                percmem=$(printf %.2f%% "$((10**3 * 100 * $FreeMem/$REALmem))e-3")
+                percmem=$(printf %.2f%% "$((10**3 * 100 * $AllocMem/$REALmem))e-3")
                 # Converting to GB
-                let FreeMem=$(($ALLocmem))/1024
+                let AllocMem=$(($AllocMem))/1024
                 let REALmem=$(($REALmem))/1024
+                echo $AllocMem
         fi
         if [[ "$i" == *Partitions* ]]; then
                 PartitionName=$(echo $i | awk -F "=" '{print $2}')
@@ -86,7 +88,7 @@ do
                         GPUoccu="0"
                         GPUperc="0"
                 fi
-                table+="$PartitionName  |  $nodeName|    $CPUAlloc/$CPUTot/$CPUperc| | $REALmem/$FreeMem/$percmem Gb| $GPUoccu/$GPUTot/$GPUperc %\n"
+                table+="$PartitionName  |  $nodeName|    $CPUAlloc/$CPUTot/$CPUperc| | $AllocMem/$REALmem/$percmem Gb| $GPUoccu/$GPUTot/$GPUperc %\n"
         fi
 done
 echo -e ${table} | column -t -s "|"
